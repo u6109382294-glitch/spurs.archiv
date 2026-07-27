@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spurs Archiv — Geschichte & Transfers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #0B1A3D;
+    --navy-deep: #060F26;
+    --paper: #F5F6F8;
+    --white: #FFFFFF;
+    --gold: #C9A24B;
+    --ink-soft: #57607A;
+    --line: #22315E;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--paper);
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+  }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background: var(--gold); color: var(--navy-deep); }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+  header{
+    background: var(--navy);
+    color: var(--white);
+    position: sticky; top:0; z-index: 20;
+    border-bottom: 3px solid var(--gold);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width: 1080px; margin:0 auto; padding: 20px 40px;
+  }
+  .logo{
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .logo span{ color: var(--gold); }
+  .navlinks{ display:flex; gap:30px; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; }
+  .navlinks a{ color: rgba(255,255,255,0.75); transition: color .2s ease; }
+  .navlinks a:hover{ color: var(--gold); }
+
+  .hero{
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: var(--white);
+    padding: 110px 0 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; top:-40%; right:-10%;
+    width: 640px; height: 640px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .hero::after{
+    content:'';
+    position:absolute; top:-20%; right:5%;
+    width: 460px; height: 460px;
+    border: 1px solid rgba(201,162,75,0.18);
+    border-radius: 50%;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:0.82rem; color: var(--gold);
+    letter-spacing: 0.05em; margin-bottom: 20px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:22px; height:1px; background:var(--gold); }
+  h1{
+    font-family:'Fraunces', serif; font-weight:600; font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+    line-height: 1.02; max-width: 15ch; position: relative; z-index:1;
+  }
+  h1 em{ font-style: italic; font-weight:400; color: var(--gold); }
+  .hero-sub{ margin-top: 26px; max-width: 50ch; color: rgba(255,255,255,0.75); font-size:1.05rem; position:relative; z-index:1; }
+  .hero-facts{
+    margin-top: 50px; display:flex; gap:44px; flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color: rgba(255,255,255,0.6);
+    position:relative; z-index:1;
+  }
+  .hero-facts div span{ display:block; color: var(--white); font-size:1.5rem; font-family:'Fraunces',serif; margin-top:6px; }
+
+  section{ padding: 90px 0; }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom: 50px; border-bottom: 1px solid #D7DAE3; padding-bottom: 18px;
+  }
+  .section-head h2{ font-family:'Fraunces', serif; font-weight:600; font-size:1.9rem; }
+  .section-tag{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); }
+
+  /* timeline */
+  .timeline{ position:relative; padding-left: 34px; }
+  .timeline::before{
+    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background: #D7DAE3;
+  }
+  .t-item{ position:relative; padding-bottom: 44px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:''; position:absolute; left:-34px; top:4px; width:11px; height:11px; border-radius:50%;
+    background: var(--gold); border: 3px solid var(--paper); outline: 1px solid var(--gold);
+  }
+  .t-year{ font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color: var(--gold); background: var(--navy);
+    display:inline-block; padding: 3px 10px; border-radius: 3px; margin-bottom: 10px; }
+  .t-title{ font-family:'Fraunces', serif; font-weight:600; font-size:1.3rem; margin-bottom:8px; }
+  .t-desc{ color: var(--ink-soft); max-width: 60ch; }
+
+  /* honours */
+  .honours-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 1px; background:#D7DAE3; border:1px solid #D7DAE3; }
+  .honour{ background: var(--white); padding: 28px 26px; }
+  .honour .count{ font-family:'Fraunces', serif; font-weight:700; font-size: 2.4rem; color: var(--navy); }
+  .honour .label{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--ink-soft); margin-top:6px; }
+
+  /* transfers */
+  .transfer-note{ color: var(--ink-soft); max-width: 62ch; margin-bottom: 40px; }
+  .transfer-table{ width:100%; border-collapse: collapse; font-size: 0.94rem; }
+  .transfer-table th{
+    text-align:left; font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.04em;
+    color: var(--ink-soft); text-transform: uppercase; padding: 10px 14px; border-bottom: 1px solid #D7DAE3;
+  }
+  .transfer-table td{ padding: 16px 14px; border-bottom: 1px solid #E7E9EE; vertical-align: top; }
+  .transfer-table tr:hover td{ background: #FFFFFF; }
+  .dir-in{ color: #1D7A46; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; font-weight:600; }
+  .dir-out{ color: #A23B3B; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; font-weight:600; }
+  .p-name{ font-weight:600; }
+  .p-club{ color: var(--ink-soft); font-size: 0.88rem; }
+  .p-fee{ font-family:'IBM Plex Mono', monospace; color: var(--navy); }
+
+  .disclaimer{
+    margin-top: 34px; font-size: 0.82rem; color: var(--ink-soft);
+    border-left: 2px solid var(--gold); padding-left: 16px;
+  }
+
+  /* contact */
+  .contact{
+    background: var(--navy); color: var(--white); text-align:center; padding: 110px 0;
+    border-top: 3px solid var(--gold);
+  }
+  .contact h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size: clamp(2rem, 4.5vw, 3rem);
+    max-width: 20ch; margin: 0 auto 30px;
+  }
+  .contact-sub{ color: rgba(255,255,255,0.65); max-width: 46ch; margin: 0 auto 34px; }
+  .contact-btn{
+    display:inline-flex; align-items:center; gap:10px; background: var(--gold); color: var(--navy-deep);
+    padding: 15px 28px; border-radius: 40px; font-family:'IBM Plex Mono', monospace; font-size:0.9rem; font-weight:600;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .contact-btn:hover{ transform: translateY(-2px); background:#DDB861; }
+  .contact-meta{ margin-top: 34px; font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color: rgba(255,255,255,0.5); }
+
+  footer{
+    background: var(--navy-deep); color: rgba(255,255,255,0.5); padding: 26px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:0.76rem; text-align:center;
+  }
+
+  @media (max-width: 780px){
+    .wrap{ padding: 0 22px; }
+    nav{ padding: 18px 22px; }
+    .navlinks{ gap: 16px; font-size:0.72rem; }
+    .honours-grid{ grid-template-columns: repeat(2,1fr); }
+    .hero-facts{ gap: 26px; }
+    .transfer-table{ font-size: 0.82rem; }
+    .transfer-table th:nth-child(3), .transfer-table td:nth-child(3){ display:none; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; scroll-behavior:auto !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">spurs<span>.</span>archiv</div>
+    <div class="navlinks">
+      <a href="#geschichte">Geschichte</a>
+      <a href="#ehren">Erfolge</a>
+      <a href="#transfers">Transfers</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">GEGRÜNDET 1882 — NORD-LONDON</div>
+    <h1>Tottenham Hotspur.<br><em>Geschichte,</em> Ehre,<br>und der nächste Kader.</h1>
+    <p class="hero-sub">Ein Überblick über die Vereinsgeschichte, die größten Erfolge und die aktuellen Transferbewegungen von Tottenham Hotspur — kuratiert und laufend aktualisiert.</p>
+    <div class="hero-facts">
+      <div>Gegründet<span>1882</span></div>
+      <div>Stadion<span>Tottenham Hotspur Stadium</span></div>
+      <div>Spitzname<span>Spurs / Lilywhites</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <section id="geschichte">
+    <div class="section-head">
+      <h2>Vereinsgeschichte</h2>
+      <div class="section-tag">CHRONIK</div>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-year">1882</div>
+        <div class="t-title">Gründung durch Schüler</div>
+        <div class="t-desc">Tottenham Hotspur wird von einer Gruppe Schüler in Nord-London gegründet und trägt zunächst den Namen Hotspur Football Club, bevor der heutige Name übernommen wird.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-year">1901</div>
+        <div class="t-title">FA-Cup-Sieg als Nicht-Ligaverein</div>
+        <div class="t-desc">Spurs gewinnen den FA Cup, während sie noch nicht der Football League angehören — bis heute eine Seltenheit in der englischen Fußballgeschichte.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-year">1961</div>
+        <div class="t-title">Das Double</div>
+        <div class="t-desc">Unter Bill Nicholson gewinnt Tottenham als erster Verein im 20. Jahrhundert Meisterschaft und FA Cup im selben Jahr.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-year">1963</div>
+        <div class="t-title">Erster englischer Europapokalsieger</div>
+        <div class="t-desc">Mit dem Gewinn des Europapokals der Pokalsieger wird Spurs der erste englische Verein, der einen europäischen Wettbewerb gewinnt.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-year">2019</div>
+        <div class="t-title">Neues Stadion, Finale in Madrid</div>
+        <div class="t-desc">Einzug ins neue Tottenham Hotspur Stadium und Erreichen des Champions-League-Finales, das gegen den FC Liverpool verloren geht.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-year">2025</div>
+        <div class="t-title">Europa-League-Titel</div>
+        <div class="t-desc">Tottenham gewinnt die UEFA Europa League und sichert sich damit den ersten europäischen Titel seit über vier Jahrzehnten.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ehren">
+    <div class="section-head">
+      <h2>Erfolge im Überblick</h2>
+      <div class="section-tag">TITEL</div>
+    </div>
+    <div class="honours-grid">
+      <div class="honour"><div class="count">2×</div><div class="label">Englische Meisterschaft</div></div>
+      <div class="honour"><div class="count">8×</div><div class="label">FA Cup</div></div>
+      <div class="honour"><div class="count">4×</div><div class="label">League Cup</div></div>
+      <div class="honour"><div class="count">2×</div><div class="label">UEFA Cup / Europa League</div></div>
+      <div class="honour"><div class="count">1×</div><div class="label">Europapokal der Pokalsieger</div></div>
+      <div class="honour"><div class="count">1×</div><div class="label">Charity Shield (alleiniger Sieg)</div></div>
+    </div>
+  </section>
+
+  <section id="transfers">
+    <div class="section-head">
+      <h2>Transfers Sommer 2026</h2>
+      <div class="section-tag">TRANSFERFENSTER</div>
+    </div>
+    <p class="transfer-note">Tottenham gestaltet unter dem neuen Cheftrainer Roberto De Zerbi den Kader für die kommende Saison aktiv um. Die Rekordablöse dieses Sommers ist der Transfer von Sandro Tonali.</p>
+    <table class="transfer-table">
+      <thead>
+        <tr><th>Spieler</th><th>Von / Zu</th><th>Position</th><th>Ablöse</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="dir-in">ZUGANG</span><div class="p-name">Sandro Tonali</div></td>
+          <td><div class="p-club">von Newcastle United</div></td>
+          <td>Mittelfeld</td>
+          <td class="p-fee">~ £100 Mio.</td>
+        </tr>
+        <tr>
+          <td><span class="dir-in">ZUGANG</span><div class="p-name">Marcos Senesi</div></td>
+          <td><div class="p-club">von AFC Bournemouth</div></td>
+          <td>Innenverteidigung</td>
+          <td class="p-fee">ablösefrei</td>
+        </tr>
+        <tr>
+          <td><span class="dir-in">ZUGANG</span><div class="p-name">Jan Paul van Hecke</div></td>
+          <td><div class="p-club">von Brighton &amp; Hove Albion</div></td>
+          <td>Innenverteidigung</td>
+          <td class="p-fee">~ £52 Mio.</td>
+        </tr>
+        <tr>
+          <td><span class="dir-in">ZUGANG</span><div class="p-name">Andrew Robertson</div></td>
+          <td><div class="p-club">von Liverpool FC</div></td>
+          <td>Linksverteidigung</td>
+          <td class="p-fee">ablösefrei</td>
+        </tr>
+        <tr>
+          <td><span class="dir-in">ZUGANG</span><div class="p-name">Martin Dúbravka</div></td>
+          <td><div class="p-club">von Burnley FC</div></td>
+          <td>Torwart</td>
+          <td class="p-fee">ablösefrei</td>
+        </tr>
+        <tr>
+          <td><span class="dir-out">ABGANG</span><div class="p-name">Alejo Veliz</div></td>
+          <td><div class="p-club">Vereinswechsel</div></td>
+          <td>Sturm</td>
+          <td class="p-fee">—</td>
+        </tr>
+        <tr>
+          <td><span class="dir-out">ABGANG</span><div class="p-name">Alfie Devine</div></td>
+          <td><div class="p-club">Vereinswechsel</div></td>
+          <td>Mittelfeld</td>
+          <td class="p-fee">—</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="disclaimer">Stand: Ende Juli 2026. Das Transferfenster läuft noch bis Anfang September — weitere Zu- und Abgänge sind möglich. Angaben zu Ablösesummen basieren auf Medienberichten und können abweichen.</p>
+  </section>
+
+</main>
+
+<section id="kontakt" class="contact">
+  <div class="wrap">
+    <h2>Fragen, Korrekturen oder Ergänzungen?</h2>
+    <p class="contact-sub">Diese Seite wird von Fans für Fans gepflegt. Hinweise zu Fehlern oder aktuellen Transfers sind willkommen.</p>
+    <a class="contact-btn" href="mailto:joe.kinsau@gmail.com">Joe Richter kontaktieren →</a>
+    <div class="contact-meta">joe.kinsau@gmail.com</div>
+  </div>
+</section>
+
+<footer>
+  Inoffizielle Fan-Seite · nicht verbunden mit Tottenham Hotspur F.C.
+</footer>
+
+</body>
+</html>
